@@ -42,17 +42,21 @@ class QrScannerActivity : AppCompatActivity() {
         val url = binding.tvResult.text.toString()
 
         if (url.isEmpty()) {
-            Toast.makeText(this, "Por favor, escanee primero un QR válido", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(this, "Por favor, escanee primero un QR válido", Toast.LENGTH_SHORT).show()
         } else {
-            if (Patterns.WEB_URL.matcher(url).matches()) {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            var fullUrl = url
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                fullUrl = "http://$url"
+            }
+            if (Patterns.WEB_URL.matcher(fullUrl).matches()) {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl))
                 startActivity(browserIntent)
             } else {
                 Toast.makeText(this, "URL no válida", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
