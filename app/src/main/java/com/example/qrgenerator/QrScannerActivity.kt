@@ -4,6 +4,7 @@ package com.example.qrgenerator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qrgenerator.databinding.ActivityQrScannerBinding
@@ -44,8 +45,12 @@ class QrScannerActivity : AppCompatActivity() {
             Toast.makeText(this, "Por favor, escanee primero un QR válido", Toast.LENGTH_SHORT)
                 .show()
         } else {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(browserIntent)
+            if (Patterns.WEB_URL.matcher(url).matches()) {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(browserIntent)
+            } else {
+                Toast.makeText(this, "URL no válida", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
