@@ -2,6 +2,7 @@ package com.example.qrgenerator
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
@@ -16,6 +17,7 @@ class QrScannerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
